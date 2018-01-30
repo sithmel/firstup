@@ -8,12 +8,8 @@ firstUp(qoda)
 var counter = 0
 var addMessage = document.querySelector('.add-message')
 
-function hide (node) {
-  node.className += 'hidden'
-}
-
 addMessage.addEventListener('click', function () {
   var content = document.createElement('div')
   content.innerHTML = 'Hello ' + (counter++) + ' <button data-firstup-next>next item</button>'
-  qoda.push({ content: content, selector: '.messages' })
+  qoda.push({ content: content, selector: '.messages', timeout: 1000 })
 })

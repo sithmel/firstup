@@ -1,7 +1,7 @@
 {
   "name": "firstup",
   "version": "0.0.0",
-  "description": "",
+  "description": "A browser notification scheduler",
   "main": "index.js",
   "scripts": {
     "serve-demo": "http-server -p 9090 dist",
