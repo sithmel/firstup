@@ -882,6 +882,8 @@ function removeNode (node) {
 
 function createNode (node) {}
 
+function transform (obj) { return obj }
+
 function firstUp (queue, opts) {
   opts = opts || {}
   var defaultSelector = opts.selector || '.messages'
@@ -889,7 +891,7 @@ function firstUp (queue, opts) {
   var defaultTimeout = opts.timeout
   var defaultRemoveNode = opts.removeNode || removeNode
   var defaultCreateNode = opts.createNode || createNode
-
+  var transformObj = opts.transform || transform
   var currentContent, onCreate, onRemove, delegation, timer
 
   function addContent () {
@@ -897,7 +899,8 @@ function firstUp (queue, opts) {
     delegation && delegation.destroy()
     timer && clearTimeout(timer)
 
-    queue.fetch(function (notification) {
+    queue.fetch(function (obj) {
+      var notification = transformObj(obj)
       var selector = notification.selector || defaultSelector
       var timeout = notification.timeout || defaultTimeout
       var closeSelector = notification.closeSelector || defaultCloseSelector

@@ -51,3 +51,4 @@ firstUp(qoda, {
   createNode: function () {},
 });
 ```
+You can also set a "transform" function. This function takes the object from the queue and returns an object implementing the fragment object interface.
