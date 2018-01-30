@@ -1,4 +1,3 @@
-/* eslint-env testcafe */
 var testcafe = require('testcafe')
 var Selector = testcafe.Selector
 
