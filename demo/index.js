@@ -10,6 +10,6 @@ var addMessage = document.querySelector('.add-message')
 
 addMessage.addEventListener('click', function () {
   var content = document.createElement('div')
-  content.innerHTML = 'Hello ' + (counter++) + '<button data-firstup-next>next item</button>'
+  content.innerHTML = 'Hello ' + (counter++) + ' <button data-firstup-next>next item</button>'
   qoda.push({ content: content, selector: '.messages' })
 })
