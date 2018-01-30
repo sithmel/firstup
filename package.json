@@ -1,6 +1,6 @@
 {
   "name": "firstup",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A browser notification scheduler",
   "main": "index.js",
   "scripts": {
@@ -32,10 +32,10 @@
     "husky": "^0.14.3",
     "mocha": "^5.0.0",
     "qoda": "0.0.1",
+    "testcafe": "^0.18.6",
     "webpack": "^3.10.0"
   },
   "dependencies": {
-    "delegate": "^3.2.0",
-    "testcafe": "^0.18.6"
+    "delegate": "^3.2.0"
   }
 }

@@ -4,9 +4,16 @@ function removeNode (node) {
   node.parentNode.removeChild(node)
 }
 
+function createNode (node) {}
+
 function firstUp (queue, opts) {
   opts = opts || {}
-  var closeSelector = opts.closeSelector || '[data-firstup-next]'
+  var defaultSelector = opts.selector || '.messages'
+  var defaultCloseSelector = opts.closeSelector || '[data-firstup-next]'
+  var defaultTimeout = opts.timeout
+  var defaultRemoveNode = opts.removeNode || removeNode
+  var defaultCreateNode = opts.createNode || createNode
+
   var currentContent, onCreate, onRemove, delegation, timer
 
   function addContent () {
@@ -15,11 +22,12 @@ function firstUp (queue, opts) {
     timer && clearTimeout(timer)
 
     queue.fetch(function (notification) {
-      var selector = notification.selector // string
-      var timeout = notification.timeout
+      var selector = notification.selector || defaultSelector
+      var timeout = notification.timeout || defaultTimeout
+      var closeSelector = notification.closeSelector || defaultCloseSelector
       currentContent = notification.content // dom node
-      onRemove = notification.onRemove || removeNode
-      onCreate = notification.onCreate || function () {}
+      onRemove = notification.onRemove || defaultRemoveNode
+      onCreate = notification.onCreate || defaultCreateNode
       var parentNode = document.querySelector(selector)
       parentNode.appendChild(currentContent)
       onCreate(currentContent)
