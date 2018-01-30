@@ -37,7 +37,7 @@ function firstUp (queue, opts) {
       if (timeout) {
         timer = setTimeout(addContent, timeout)
       }
-      delegation = delegate(currentContent, closeSelector, 'click', addContent, false)
+      delegation = delegate(document, closeSelector, 'click', addContent, false)
     })
   }
 

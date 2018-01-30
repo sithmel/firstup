@@ -300,7 +300,7 @@ var addMessage = document.querySelector('.add-message')
 addMessage.addEventListener('click', function () {
   var content = document.createElement('div')
   content.innerHTML = 'Hello ' + (counter++) + ' <button data-firstup-next>next item</button>'
-  qoda.push({ content: content, selector: '.messages', timeout: 1000 })
+  qoda.push({ content: content, selector: '.messages' })
 })
 
 
@@ -913,7 +913,7 @@ function firstUp (queue, opts) {
       if (timeout) {
         timer = setTimeout(addContent, timeout)
       }
-      delegation = delegate(currentContent, closeSelector, 'click', addContent, false)
+      delegation = delegate(document, closeSelector, 'click', addContent, false)
     })
   }
 
