@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "serve-demo": "http-server -p 9090 dist",
+    "build-demo": "webpack -w",
     "test": "mocha tests/*.js",
     "watch": "npm run test -- -w",
     "lint": "eslint --fix --ext .js ./src ./tests",

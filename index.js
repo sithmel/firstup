@@ -1,34 +1,27 @@
 var delegate = require('delegate')
 
-function FirstUp (queue) {
-  if (!(this instanceof FirstUp)) {
-    return new FirstUp(queue)
-  }
-  this.queue = queue
-}
+function firstUp (queue) {
+  var currentContent
 
-FirstUp.prototype.init = function init () {
-  var handler = function (e) {
-    this.removeContent()
-    this.addContent()
-  }
-
-  delegate(document.body, '[data-firstup-next]', 'click', handler.bind(this), false)
-}
-
-FirstUp.prototype.addContent = function addContent () {
-  var handler = function (notification) {
-    var selector = notification.selector // string
-    this.currentContent = notification.content // dom node
-    var parentNode = document.querySelector(selector)
-    parentNode.appendChild(this.currentContent)
+  function addContent () {
+    queue.fetch(function (notification) {
+      var selector = notification.selector // string
+      currentContent = notification.content // dom node
+      var parentNode = document.querySelector(selector)
+      parentNode.appendChild(currentContent)
+    })
   }
 
-  this.queue.fetch(handler.bind(this))
+  function removeContent () {
+    currentContent.parentNode.removeChild(currentContent)
+  }
+
+  delegate(document.body, '[data-firstup-next]', 'click', function (e) {
+    removeContent()
+    addContent()
+  }, false)
+
+  addContent()
 }
 
-FirstUp.prototype.removeContent = function removeContent () {
-  this.currentContent.parentNode.removeChild(this.currentContent)
-}
-
-module.exports = FirstUp
+module.exports = firstUp
