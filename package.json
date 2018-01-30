@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "test": "mocha tests/*.js",
     "watch": "npm run test -- -w",
     "lint": "eslint --fix --ext .js ./src ./tests",
@@ -26,7 +27,9 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
-    "mocha": "^5.0.0"
+    "mocha": "^5.0.0",
+    "qoda": "0.0.1",
+    "webpack": "^3.10.0"
   },
   "dependencies": {
     "delegate": "^3.2.0"

@@ -1,6 +1,9 @@
 var delegate = require('delegate')
 
 function FirstUp (queue) {
+  if (!(this instanceof FirstUp)) {
+    return new FirstUp(queue)
+  }
   this.queue = queue
 }
 
