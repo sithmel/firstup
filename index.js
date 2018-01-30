@@ -1,39 +1,47 @@
 var delegate = require('delegate')
 
-function removeNode (node) {
-  node.parentNode.removeChild(node)
+function renderNode (obj, queue) {
+  var node
+  var content = obj.content
+  if (content instanceof window.Node) {
+    node = content
+  } else {
+    node = document.createElement('div')
+    node.innerHTML = content
+  }
+  var parentNode = document.querySelector('.firstup-slot')
+  parentNode.appendChild(node)
+  return node
 }
 
-function createNode (node) {}
-
-function transform (obj) { return obj }
+function removeNode (node, queue) {
+  node.parentNode.removeChild(node)
+  return node
+}
 
 function firstUp (queue, opts) {
   opts = opts || {}
-  var defaultSelector = opts.selector || '.messages'
-  var defaultCloseSelector = opts.closeSelector || '[data-firstup-next]'
+  var defaultCloseSelector = opts.closeSelector || '.firstup-close'
   var defaultTimeout = opts.timeout
-  var defaultRemoveNode = opts.removeNode || removeNode
-  var defaultCreateNode = opts.createNode || createNode
-  var transformObj = opts.transform || transform
-  var currentContent, onCreate, onRemove, delegation, timer
+
+  var defaultRemove = opts.remove || removeNode
+  var defaultRender = opts.render || renderNode
+  var currentContent, delegation, remove, timer
 
   function addContent () {
-    onRemove && onRemove(currentContent)
+    remove && remove(currentContent, queue)
     delegation && delegation.destroy()
     timer && clearTimeout(timer)
 
-    queue.fetch(function (obj) {
-      var notification = transformObj(obj)
-      var selector = notification.selector || defaultSelector
+    queue.fetch(function (notification) {
+      var render = notification.render || defaultRender
       var timeout = notification.timeout || defaultTimeout
+
       var closeSelector = notification.closeSelector || defaultCloseSelector
-      currentContent = notification.content // dom node
-      onRemove = notification.onRemove || defaultRemoveNode
-      onCreate = notification.onCreate || defaultCreateNode
-      var parentNode = document.querySelector(selector)
-      parentNode.appendChild(currentContent)
-      onCreate(currentContent)
+
+      currentContent = render(notification, queue)
+      remove = notification.remove || defaultRemove
+
       if (timeout) {
         timer = setTimeout(addContent, timeout)
       }
