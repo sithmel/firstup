@@ -6,7 +6,7 @@
   "scripts": {
     "serve-demo": "http-server -p 9090 dist",
     "build-demo": "webpack -w",
-    "test": "mocha tests/*.js",
+    "test": "testcafe chrome tests/test.js",
     "watch": "npm run test -- -w",
     "lint": "eslint --fix --ext .js ./src ./tests",
     "precommit": "npm run lint",
