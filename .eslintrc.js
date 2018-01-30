@@ -1,3 +1,6 @@
 module.exports = {
-    "extends": "standard"
+    "plugins": [
+        "testcafe"
+      ],
+      "extends": [ "plugin:testcafe/recommended", "standard"]
 };
