@@ -297,6 +297,10 @@ firstUp(qoda)
 var counter = 0
 var addMessage = document.querySelector('.add-message')
 
+function hide (node) {
+  node.className += 'hidden'
+}
+
 addMessage.addEventListener('click', function () {
   var content = document.createElement('div')
   content.innerHTML = 'Hello ' + (counter++) + ' <button data-firstup-next>next item</button>'
@@ -876,26 +880,28 @@ module.exports = function(length) {
 
 var delegate = __webpack_require__(9)
 
+function removeNode (node) {
+  node.parentNode.removeChild(node)
+}
+
 function firstUp (queue) {
-  var currentContent
+  var currentContent, onCreate, onRemove, delegation
 
   function addContent () {
+    onRemove && onRemove(currentContent)
+    delegation && delegation.destroy()
+
     queue.fetch(function (notification) {
       var selector = notification.selector // string
       currentContent = notification.content // dom node
+      onRemove = notification.onRemove || removeNode
+      onCreate = notification.onCreate || function () {}
       var parentNode = document.querySelector(selector)
       parentNode.appendChild(currentContent)
+      onCreate(currentContent)
+      delegation = delegate(currentContent, '[data-firstup-next]', 'click', addContent, false)
     })
   }
-
-  function removeContent () {
-    currentContent.parentNode.removeChild(currentContent)
-  }
-
-  delegate(document.body, '[data-firstup-next]', 'click', function (e) {
-    removeContent()
-    addContent()
-  }, false)
 
   addContent()
 }
