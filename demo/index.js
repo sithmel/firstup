@@ -27,12 +27,12 @@ nextMessage.addEventListener('click', function () {
 
 addMessage.addEventListener('click', function () {
   var content = document.createElement('div')
-  content.innerHTML = 'Hello (simple renderer)' + (counter++)
+  content.innerHTML = 'Hello (simple renderer) ' + (counter++)
   qoda.push({ content: content })
 })
 
 addMessageReact.addEventListener('click', function () {
-  qoda.push({ message: 'hello (react renderer)' + (counter++) })
+  qoda.push({ message: 'hello (react renderer) ' + (counter++) })
 })
 
 class Hello extends React.Component {

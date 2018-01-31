@@ -1,12 +1,12 @@
 {
   "name": "firstup",
-  "version": "0.0.3",
-  "description": "A browser notification scheduler",
+  "version": "0.0.4",
+  "description": "A browser render scheduler",
   "main": "index.js",
   "scripts": {
     "build-demo": "webpack",
     "demo": "webpack-dev-server",
-    "test": "npm run build && testcafe chrome tests/test.js",
+    "test": "npm run build-demo && testcafe chrome tests/test.js",
     "watch": "npm run test -- -w",
     "lint": "eslint --fix --ext .js ./src ./tests",
     "precommit": "npm run lint",

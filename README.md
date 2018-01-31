@@ -1,6 +1,6 @@
 FirstUp
 =======
-A browser notification scheduler.
+A browser render scheduler.
 
 This module allows to show html fragments, in a way that they are not displayed at the same time.
 
@@ -36,7 +36,7 @@ Options
 -------
 firstUp takes an option object as second argument. You can pass a custom render method to deal with the data coming from the queue:
 ```js
-var firstUp = firstUp(qoda, {
+var firstUp = new FirstUp(qoda, {
   render: (data, firstUp) => {
     if (window.confirm(data.message)) {
       firstUp.next()

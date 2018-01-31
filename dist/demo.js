@@ -1445,6 +1445,7 @@ var addMessage = document.querySelector('.add-message')
 var addMessageReact = document.querySelector('.add-message-react')
 var nextMessage = document.querySelector('.next-message')
 var slot = document.querySelector('.firstup-slot')
+
 nextMessage.addEventListener('click', function () {
   slot.innerHTML = ''
   firstUpAPI.next()
@@ -1452,26 +1453,29 @@ nextMessage.addEventListener('click', function () {
 
 addMessage.addEventListener('click', function () {
   var content = document.createElement('div')
-  content.innerHTML = 'Hello ' + (counter++)
+  content.innerHTML = 'Hello (simple renderer) ' + (counter++)
   qoda.push({ content: content })
 })
 
 addMessageReact.addEventListener('click', function () {
-  qoda.push({ message: 'hello ' + (counter++) })
+  qoda.push({ message: 'hello (react renderer) ' + (counter++) })
 })
 
 class Hello extends React.Component {
   constructor (props) {
     super(props)
     this.state = { message: '' }
-    const that = this
-    render.add((o) => 'message' in o, function (obj, queue) {
-      that.updateMessage(obj.message)
+  }
+
+  componentDidMount () {
+    render.add((o) => 'message' in o, (obj, firstUpApi) => {
+      this.updateMessage(obj.message)
     })
   }
 
   updateMessage (message) {
     this.setState({ message })
+    setTimeout(() => this.resetMessage(), 1000)
   }
 
   resetMessage () {
@@ -1480,8 +1484,7 @@ class Hello extends React.Component {
   }
 
   render () {
-    const nextButton = React.createElement('button', { onClick: () => this.resetMessage() }, 'next')
-    return React.createElement('div', null, [this.state.message, nextButton])
+    return React.createElement('div', null, this.state.message)
   }
 }
 
@@ -19629,6 +19632,7 @@ function FirstUp (queue, opts) {
   this.queue = queue
   this.defaultRender = opts.render || renderNode
   this.waitingForQueue = false
+  this.next()
 }
 
 FirstUp.prototype.next = function next () {
