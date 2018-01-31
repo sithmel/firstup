@@ -19620,29 +19620,31 @@ function renderNode (obj, queue) {
   parentNode.appendChild(node)
 }
 
-function firstUp (queue, opts) {
+function FirstUp (queue, opts) {
+  if (!(this instanceof FirstUp)) {
+    return new FirstUp(queue, opts)
+  }
+
   opts = opts || {}
-  var defaultRender = opts.render || renderNode
-  var waitingForQueue = false
-
-  function addContent () {
-    if (waitingForQueue) return
-    waitingForQueue = true
-    queue.fetch(function (notification) {
-      waitingForQueue = false
-      var render = notification.render || defaultRender
-      render(notification, queue)
-    })
-  }
-
-  addContent()
-
-  return {
-    next: addContent
-  }
+  this.queue = queue
+  this.defaultRender = opts.render || renderNode
+  this.waitingForQueue = false
 }
 
-module.exports = firstUp
+FirstUp.prototype.next = function next () {
+  if (this.waitingForQueue) return
+  this.waitingForQueue = true
+
+  var handler = function (data) {
+    this.waitingForQueue = false
+    var render = data.render || this.defaultRender
+    render.call(this, data, this)
+  }
+
+  this.queue.fetch(handler.bind(this))
+}
+
+module.exports = FirstUp
 
 
 /***/ })
