@@ -16,16 +16,16 @@ test('Add 3 messages and click through all 3', async (t) => {
 
   const content1 = await Selector('.firstup-slot').textContent
   await t
-    .click(Selector('button.firstup-close'))
-    .expect(content1).eql('Hello 0 next item')
+    .click(Selector('.next-message'))
+    .expect(content1).eql('Hello 0')
 
   const content2 = await Selector('.firstup-slot').textContent
   await t
-    .click(Selector('button.firstup-close'))
-    .expect(content2).eql('Hello 1 next item')
+    .click(Selector('.next-message'))
+    .expect(content2).eql('Hello 1')
 
   const content3 = await Selector('.firstup-slot').textContent
   await t
-    .click(Selector('button.firstup-close'))
-    .expect(content3).eql('Hello 2 next item')
+    .click(Selector('.next-message'))
+    .expect(content3).eql('Hello 2')
 })

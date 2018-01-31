@@ -38,6 +38,7 @@
     "webpack": "^3.10.0"
   },
   "dependencies": {
-    "delegate": "^3.2.0"
+    "delegate": "^3.2.0",
+    "occamsrazor": "^7.1.0"
   }
 }
