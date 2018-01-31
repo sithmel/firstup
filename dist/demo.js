@@ -434,6 +434,150 @@ module.exports = emptyObject;
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = __webpack_require__(21);
+} else {
+  module.exports = __webpack_require__(22);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (process.env.NODE_ENV !== 'production') {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyFunction = __webpack_require__(1);
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = emptyFunction;
+
+if (process.env.NODE_ENV !== 'production') {
+  var printWarning = function printWarning(format) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    var argIndex = 0;
+    var message = 'Warning: ' + format.replace(/%s/g, function () {
+      return args[argIndex++];
+    });
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+
+  warning = function warning(condition, format) {
+    if (format === undefined) {
+      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+
+    if (format.indexOf('Failed Composite propType: ') === 0) {
+      return; // Ignore CompositeComponent proptype check.
+    }
+
+    if (!condition) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+        args[_key2 - 2] = arguments[_key2];
+      }
+
+      printWarning.apply(undefined, [format].concat(args));
+    }
+  };
+}
+
+module.exports = warning;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports) {
 
 var g;
@@ -460,7 +604,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -650,223 +794,12 @@ module.exports = g;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(0)))
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(25);
-} else {
-  module.exports = __webpack_require__(26);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if (process.env.NODE_ENV !== 'production') {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyFunction = __webpack_require__(1);
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = emptyFunction;
-
-if (process.env.NODE_ENV !== 'production') {
-  var printWarning = function printWarning(format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    var argIndex = 0;
-    var message = 'Warning: ' + format.replace(/%s/g, function () {
-      return args[argIndex++];
-    });
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-
-  warning = function warning(condition, format) {
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
-      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-        args[_key2 - 2] = arguments[_key2];
-      }
-
-      printWarning.apply(undefined, [format].concat(args));
-    }
-  };
-}
-
-module.exports = warning;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(0)))
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
-
-// DOM APIs, for completeness
-
-exports.setTimeout = function() {
-  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
-};
-exports.setInterval = function() {
-  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
-};
-exports.clearTimeout =
-exports.clearInterval = function(timeout) {
-  if (timeout) {
-    timeout.close();
-  }
-};
-
-function Timeout(id, clearFn) {
-  this._id = id;
-  this._clearFn = clearFn;
-}
-Timeout.prototype.unref = Timeout.prototype.ref = function() {};
-Timeout.prototype.close = function() {
-  this._clearFn.call(window, this._id);
-};
-
-// Does not start the time, just sets up the members needed.
-exports.enroll = function(item, msecs) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = msecs;
-};
-
-exports.unenroll = function(item) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = -1;
-};
-
-exports._unrefActive = exports.active = function(item) {
-  clearTimeout(item._idleTimeoutId);
-
-  var msecs = item._idleTimeout;
-  if (msecs >= 0) {
-    item._idleTimeoutId = setTimeout(function onTimeout() {
-      if (item._onTimeout)
-        item._onTimeout();
-    }, msecs);
-  }
-};
-
-// setimmediate attaches itself to the global object
-__webpack_require__(6);
-// On some exotic environments, it's not clear which object `setimmeidate` was
-// able to install onto.  Search each possibility in the same order as the
-// `setimmediate` library.
-exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
-                       (typeof global !== "undefined" && global.setImmediate) ||
-                       (this && this.setImmediate);
-exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
-                         (typeof global !== "undefined" && global.clearImmediate) ||
-                         (this && this.clearImmediate);
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -878,9 +811,9 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(8);
-  var warning = __webpack_require__(9);
-  var ReactPropTypesSecret = __webpack_require__(27);
+  var invariant = __webpack_require__(6);
+  var warning = __webpack_require__(7);
+  var ReactPropTypesSecret = __webpack_require__(23);
   var loggedTypeFailures = {};
 }
 
@@ -931,7 +864,7 @@ module.exports = checkPropTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -970,7 +903,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1051,7 +984,7 @@ module.exports = EventListener;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1093,7 +1026,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1164,7 +1097,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1179,7 +1112,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(30);
+var isTextNode = __webpack_require__(26);
 
 /*eslint-disable no-bitwise */
 
@@ -1207,7 +1140,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1237,11 +1170,78 @@ function focusNode(node) {
 module.exports = focusNode;
 
 /***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(window, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__(9);
+// On some exotic environments, it's not clear which object `setimmeidate` was
+// able to install onto.  Search each possibility in the same order as the
+// `setimmediate` library.
+exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
+                       (typeof global !== "undefined" && global.setImmediate) ||
+                       (this && this.setImmediate);
+exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
+                         (typeof global !== "undefined" && global.clearImmediate) ||
+                         (this && this.clearImmediate);
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+
+/***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var setName = __webpack_require__(2);
-var logger = __webpack_require__(40);
+var logger = __webpack_require__(39);
 
 function isAnything() {
   return true;
@@ -1398,7 +1398,7 @@ module.exports = match;
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayToStr = __webpack_require__(43);
+var arrayToStr = __webpack_require__(42);
 
 function ValidationResult(score) {
   this.score = score;
@@ -1424,11 +1424,11 @@ module.exports = ValidationResult;
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var React = __webpack_require__(7)
-var ReactDOM = __webpack_require__(28)
-var Qoda = __webpack_require__(21)
-var or = __webpack_require__(37)
-var firstUp = __webpack_require__(24)
+var React = __webpack_require__(5)
+var ReactDOM = __webpack_require__(24)
+var Qoda = __webpack_require__(33)
+var or = __webpack_require__(36)
+var firstUp = __webpack_require__(44)
 
 var render = or()
 var qoda = Qoda()
@@ -1497,357 +1497,6 @@ ReactDOM.render(
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(setImmediate) {var Heap = __webpack_require__(22)
-var nonce = __webpack_require__(23)()
-__webpack_require__(6)
-
-function fifoPriority (a, b) {
-  return a.ts - b.ts
-}
-
-function lifoPriority (b, a) {
-  return a.ts - b.ts
-}
-
-function wrapData (data) {
-  return { ts: nonce(), data: data }
-}
-
-function unwrapData (payload) {
-  return payload.data
-}
-
-function Qoda (priorityFunction) {
-  if (!(this instanceof Qoda)) {
-    return new Qoda(priorityFunction)
-  }
-
-  priorityFunction = priorityFunction || fifoPriority
-  this.heap = new Heap(priorityFunction)
-}
-
-Qoda.prototype.fetch = function fetch (func) {
-  var data, f
-  if (this.callback) throw new Error('A callback is already attached to the queue')
-  this.callback = func
-
-  if (this.size()) {
-    f = this.callback
-    data = unwrapData(this.heap.pop())
-    this.callback = undefined
-    setImmediate(function () {
-      f(data)
-    })
-  }
-}
-
-Qoda.prototype.push = function push (data) {
-  var func
-  this.heap.push(wrapData(data))
-  if (this.callback) {
-    func = this.callback
-    this.callback = undefined
-    this.fetch(func)
-  }
-}
-
-Qoda.prototype.size = function size () {
-  return this.heap.size()
-}
-
-Qoda.prototype.toArray = function toArray () {
-  var array = this.heap.popAll()
-  this.heap.pushAll(array)
-  return array.map(unwrapData)
-}
-
-Qoda.fifoPriority = fifoPriority
-Qoda.lifoPriority = lifoPriority
-
-module.exports = Qoda
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10).setImmediate))
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-
-function Heap(comp, onMove) {
-  this.comp = comp || function (a, b) {
-    if (a > b) {
-      return 1;
-    } else if (a < b) {
-      return -1;
-    } else {
-      return 0;
-    }
-  };
-  this.data = [];
-  this.onMove = onMove || function () {};
-}
-
-Heap.getParentIndex = function (i) {
-  var parent = i % 2 ? (i - 1) / 2 : Math.floor((i - 1) / 2);
-  return parent >= 0 ? parent : undefined;
-};
-
-Heap.getChild1Index = function (i) {
-  return 2 * i + 1;
-};
-
-Heap.getChild2Index = function (i) {
-  return 2 * i + 2;
-};
-
-Heap.prototype._swap = function (x, y) {
-  var tmp = this.data[x];
-  this.onMove(this.data[x], y, x);
-  this.onMove(this.data[y], x, y);
-  this.data[x] = this.data[y];
-  this.data[y] = tmp;
-};
-
-Heap.prototype._bubbleUp = function bubbleUp(i) {
-  var parentIndex;
-  var data = this.data;
-  var comp = this.comp;
-  while (i > 0) {
-    parentIndex = Heap.getParentIndex(i);
-    if (comp(data[i], data[parentIndex]) < 0) {
-      this._swap(i, parentIndex);
-      i = parentIndex;
-    }
-    else {
-      return i;
-    }
-  }
-};
-
-Heap.prototype._bubbleDown = function bubbleDown(i) {
-  var data = this.data;
-  var comp = this.comp;
-  var child1Index, child2Index,
-    child1isSmaller, child2isSmaller;
-  while (i < data.length) {
-    child1Index = Heap.getChild1Index(i);
-    child2Index = Heap.getChild2Index(i);
-    child1isSmaller = typeof data[child1Index] !== 'undefined' ? comp(data[child1Index], data[i]) < 0 : false;
-    child2isSmaller = typeof data[child2Index] !== 'undefined' ? comp(data[child2Index], data[i]) < 0 : false;
-    if (child1isSmaller && child2isSmaller) {
-      if (comp(data[child1Index], data[child2Index]) < 0) {
-        this._swap(child1Index, i);
-        i = child1Index;
-      }
-      else {
-        this._swap(child2Index, i);
-        i = child2Index;
-      }
-    }
-    else if (child1isSmaller) {
-      this._swap(child1Index, i);
-      i = child1Index;
-    }
-    else if (child2isSmaller) {
-      this._swap(child2Index, i);
-      i = child2Index;
-    }
-    else {
-      return i;
-    }
-  }
-};
-
-Heap.prototype.pushAll = function (items) {
-  for (var i = 0; i < items.length; i++) {
-    this.push(items[i]);
-  }
-};
-
-Heap.prototype.push = function (item) {
-  this.data.push(item);
-  this.onMove(this.data[this.data.length - 1], this.data.length - 1);
-  this._bubbleUp(this.data.length - 1);
-};
-
-Heap.prototype.peek = function () {
-  return this.data[0];
-};
-
-Heap.prototype.pop = function () {
-  if (this.data.length === 0) return;
-  var root = this.data[0];
-  if (typeof root === 'undefined') return;
-  this.onMove(this.data[0], undefined, 0);
-
-  var last = this.data.pop();
-
-  if (this.data.length !== 0) {
-    this.data[0] = last;
-    this.onMove(this.data[0], 0);
-    this._bubbleDown(0);
-  }
-  return root;
-};
-
-Heap.prototype.popAll = function () {
-  var out = [];
-  while (this.size()) {
-    out.push(this.pop());
-  }
-  return out;
-};
-
-Heap.prototype.size = function () {
-  return this.data.length;
-};
-
-Heap.prototype.indexOf = function (value) {
-  var n, i = -1;
-  var last;
-
-  if (typeof value === 'function') {
-    for (n = 0; n < this.data.length; n++) {
-      if (value(this.data[n])) {
-        i = n;
-        break;
-      }
-    }
-  }
-  else {
-    i = this.data.indexOf(value);
-  }
-  return i;
-};
-
-Heap.prototype.remove = function (value) {
-  var i = this.indexOf(value);
-  return this.removeIndex(i);
-};
-
-Heap.prototype.get = function (i) {
-  return this.data[i];
-};
-
-Heap.prototype.removeIndex = function (i) {
-  var last;
-  if (i === -1) return;
-
-  this.onMove(this.data[i], undefined, i);
-
-  if (i === this.data.length - 1) {
-    last = this.data.pop();
-    return last;
-  }
-
-  this._swap(i, this.data.length - 1);
-
-  last = this.data.pop();
-
-  if (this.data.length > 1) {
-    this._bubbleUp(i);
-    this._bubbleDown(i);
-  }
-  return last;
-};
-
-Heap.prototype.replaceIndex = function (i, value) {
-  var last;
-  if (i === -1) return;
-  this.onMove(this.data[i], undefined, i);
-
-  this.data.push(value);
-
-  this._swap(i, this.data.length - 1);
-
-  last = this.data.pop();
-
-  if (this.data.length > 1) {
-    this._bubbleUp(i);
-    this._bubbleDown(i);
-  }
-  return last;
-};
-
-Heap.prototype.toArray = function () {
-  return this.data.slice(0);
-};
-
-module.exports = Heap;
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = function(length) {
-    var last = null
-    , repeat = 0
-
-    if (typeof length == 'undefined') length = 15
-
-    return function() {
-        var now = Math.pow(10, 2) * +new Date()
-
-        if (now == last) {
-            repeat++
-        } else {
-            repeat = 0
-            last = now
-        }
-
-        var s = (now + repeat).toString()
-        return +s.substr(s.length - length)
-    }
-}
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-function renderNode (obj, queue) {
-  var node
-  var content = obj.content
-  if (content instanceof window.Node) {
-    node = content
-  } else {
-    node = document.createElement('div')
-    node.innerHTML = content
-  }
-  var parentNode = document.querySelector('.firstup-slot')
-  parentNode.appendChild(node)
-}
-
-function firstUp (queue, opts) {
-  opts = opts || {}
-  var defaultRender = opts.render || renderNode
-  var waitingForQueue = false
-
-  function addContent () {
-    if (waitingForQueue) return
-    waitingForQueue = true
-    queue.fetch(function (notification) {
-      waitingForQueue = false
-      var render = notification.render || defaultRender
-      render(notification, queue)
-    })
-  }
-
-  addContent()
-
-  return {
-    next: addContent
-  }
-}
-
-module.exports = firstUp
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /** @license React v16.2.0
  * react.production.min.js
@@ -1873,7 +1522,7 @@ isValidElement:K,version:"16.2.0",__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_F
 
 
 /***/ }),
-/* 26 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1896,10 +1545,10 @@ if (process.env.NODE_ENV !== "production") {
 
 var _assign = __webpack_require__(3);
 var emptyObject = __webpack_require__(4);
-var invariant = __webpack_require__(8);
-var warning = __webpack_require__(9);
+var invariant = __webpack_require__(6);
+var warning = __webpack_require__(7);
 var emptyFunction = __webpack_require__(1);
-var checkPropTypes = __webpack_require__(11);
+var checkPropTypes = __webpack_require__(10);
 
 // TODO: this is special because it gets imported during build.
 
@@ -3238,7 +2887,7 @@ module.exports = react;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 27 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3257,7 +2906,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 28 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3295,15 +2944,15 @@ if (process.env.NODE_ENV === 'production') {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(29);
+  module.exports = __webpack_require__(25);
 } else {
-  module.exports = __webpack_require__(32);
+  module.exports = __webpack_require__(28);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 29 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3319,7 +2968,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(7),l=__webpack_require__(12),B=__webpack_require__(3),C=__webpack_require__(1),ba=__webpack_require__(13),da=__webpack_require__(14),ea=__webpack_require__(15),fa=__webpack_require__(16),ia=__webpack_require__(17),D=__webpack_require__(4);
+var aa=__webpack_require__(5),l=__webpack_require__(11),B=__webpack_require__(3),C=__webpack_require__(1),ba=__webpack_require__(12),da=__webpack_require__(13),ea=__webpack_require__(14),fa=__webpack_require__(15),ia=__webpack_require__(16),D=__webpack_require__(4);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -3539,7 +3188,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
 
 
 /***/ }),
-/* 30 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3554,7 +3203,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
  * @typechecks
  */
 
-var isNode = __webpack_require__(31);
+var isNode = __webpack_require__(27);
 
 /**
  * @param {*} object The object to check.
@@ -3567,7 +3216,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 31 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3595,7 +3244,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 32 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3616,21 +3265,21 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var React = __webpack_require__(7);
-var invariant = __webpack_require__(8);
-var warning = __webpack_require__(9);
-var ExecutionEnvironment = __webpack_require__(12);
+var React = __webpack_require__(5);
+var invariant = __webpack_require__(6);
+var warning = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(11);
 var _assign = __webpack_require__(3);
 var emptyFunction = __webpack_require__(1);
-var EventListener = __webpack_require__(13);
-var getActiveElement = __webpack_require__(14);
-var shallowEqual = __webpack_require__(15);
-var containsNode = __webpack_require__(16);
-var focusNode = __webpack_require__(17);
+var EventListener = __webpack_require__(12);
+var getActiveElement = __webpack_require__(13);
+var shallowEqual = __webpack_require__(14);
+var containsNode = __webpack_require__(15);
+var focusNode = __webpack_require__(16);
 var emptyObject = __webpack_require__(4);
-var checkPropTypes = __webpack_require__(11);
-var hyphenateStyleName = __webpack_require__(33);
-var camelizeStyleName = __webpack_require__(35);
+var checkPropTypes = __webpack_require__(10);
+var hyphenateStyleName = __webpack_require__(29);
+var camelizeStyleName = __webpack_require__(31);
 
 /**
  * WARNING: DO NOT manually require this module.
@@ -18997,7 +18646,7 @@ module.exports = reactDom;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 33 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19012,7 +18661,7 @@ module.exports = reactDom;
 
 
 
-var hyphenate = __webpack_require__(34);
+var hyphenate = __webpack_require__(30);
 
 var msPattern = /^ms-/;
 
@@ -19039,7 +18688,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 34 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19075,7 +18724,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 35 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19090,7 +18739,7 @@ module.exports = hyphenate;
 
 
 
-var camelize = __webpack_require__(36);
+var camelize = __webpack_require__(32);
 
 var msPattern = /^-ms-/;
 
@@ -19118,7 +18767,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 36 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19153,12 +18802,321 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 37 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(setImmediate, global) {__webpack_require__(6);
-var validator = __webpack_require__(38);
-var wrapConstructor = __webpack_require__(44);
+/* WEBPACK VAR INJECTION */(function(setImmediate) {var Heap = __webpack_require__(34)
+var nonce = __webpack_require__(35)()
+__webpack_require__(9)
+
+function fifoPriority (a, b) {
+  return a.ts - b.ts
+}
+
+function lifoPriority (b, a) {
+  return a.ts - b.ts
+}
+
+function wrapData (data) {
+  return { ts: nonce(), data: data }
+}
+
+function unwrapData (payload) {
+  return payload.data
+}
+
+function Qoda (priorityFunction) {
+  if (!(this instanceof Qoda)) {
+    return new Qoda(priorityFunction)
+  }
+
+  priorityFunction = priorityFunction || fifoPriority
+  this.heap = new Heap(priorityFunction)
+}
+
+Qoda.prototype.fetch = function fetch (func) {
+  var data, f
+  if (this.callback) throw new Error('A callback is already attached to the queue')
+  this.callback = func
+
+  if (this.size()) {
+    f = this.callback
+    data = unwrapData(this.heap.pop())
+    this.callback = undefined
+    setImmediate(function () {
+      f(data)
+    })
+  }
+}
+
+Qoda.prototype.push = function push (data) {
+  var func
+  this.heap.push(wrapData(data))
+  if (this.callback) {
+    func = this.callback
+    this.callback = undefined
+    this.fetch(func)
+  }
+}
+
+Qoda.prototype.size = function size () {
+  return this.heap.size()
+}
+
+Qoda.prototype.toArray = function toArray () {
+  var array = this.heap.popAll()
+  this.heap.pushAll(array)
+  return array.map(unwrapData)
+}
+
+Qoda.fifoPriority = fifoPriority
+Qoda.lifoPriority = lifoPriority
+
+module.exports = Qoda
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17).setImmediate))
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+
+function Heap(comp, onMove) {
+  this.comp = comp || function (a, b) {
+    if (a > b) {
+      return 1;
+    } else if (a < b) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+  this.data = [];
+  this.onMove = onMove || function () {};
+}
+
+Heap.getParentIndex = function (i) {
+  var parent = i % 2 ? (i - 1) / 2 : Math.floor((i - 1) / 2);
+  return parent >= 0 ? parent : undefined;
+};
+
+Heap.getChild1Index = function (i) {
+  return 2 * i + 1;
+};
+
+Heap.getChild2Index = function (i) {
+  return 2 * i + 2;
+};
+
+Heap.prototype._swap = function (x, y) {
+  var tmp = this.data[x];
+  this.onMove(this.data[x], y, x);
+  this.onMove(this.data[y], x, y);
+  this.data[x] = this.data[y];
+  this.data[y] = tmp;
+};
+
+Heap.prototype._bubbleUp = function bubbleUp(i) {
+  var parentIndex;
+  var data = this.data;
+  var comp = this.comp;
+  while (i > 0) {
+    parentIndex = Heap.getParentIndex(i);
+    if (comp(data[i], data[parentIndex]) < 0) {
+      this._swap(i, parentIndex);
+      i = parentIndex;
+    }
+    else {
+      return i;
+    }
+  }
+};
+
+Heap.prototype._bubbleDown = function bubbleDown(i) {
+  var data = this.data;
+  var comp = this.comp;
+  var child1Index, child2Index,
+    child1isSmaller, child2isSmaller;
+  while (i < data.length) {
+    child1Index = Heap.getChild1Index(i);
+    child2Index = Heap.getChild2Index(i);
+    child1isSmaller = typeof data[child1Index] !== 'undefined' ? comp(data[child1Index], data[i]) < 0 : false;
+    child2isSmaller = typeof data[child2Index] !== 'undefined' ? comp(data[child2Index], data[i]) < 0 : false;
+    if (child1isSmaller && child2isSmaller) {
+      if (comp(data[child1Index], data[child2Index]) < 0) {
+        this._swap(child1Index, i);
+        i = child1Index;
+      }
+      else {
+        this._swap(child2Index, i);
+        i = child2Index;
+      }
+    }
+    else if (child1isSmaller) {
+      this._swap(child1Index, i);
+      i = child1Index;
+    }
+    else if (child2isSmaller) {
+      this._swap(child2Index, i);
+      i = child2Index;
+    }
+    else {
+      return i;
+    }
+  }
+};
+
+Heap.prototype.pushAll = function (items) {
+  for (var i = 0; i < items.length; i++) {
+    this.push(items[i]);
+  }
+};
+
+Heap.prototype.push = function (item) {
+  this.data.push(item);
+  this.onMove(this.data[this.data.length - 1], this.data.length - 1);
+  this._bubbleUp(this.data.length - 1);
+};
+
+Heap.prototype.peek = function () {
+  return this.data[0];
+};
+
+Heap.prototype.pop = function () {
+  if (this.data.length === 0) return;
+  var root = this.data[0];
+  if (typeof root === 'undefined') return;
+  this.onMove(this.data[0], undefined, 0);
+
+  var last = this.data.pop();
+
+  if (this.data.length !== 0) {
+    this.data[0] = last;
+    this.onMove(this.data[0], 0);
+    this._bubbleDown(0);
+  }
+  return root;
+};
+
+Heap.prototype.popAll = function () {
+  var out = [];
+  while (this.size()) {
+    out.push(this.pop());
+  }
+  return out;
+};
+
+Heap.prototype.size = function () {
+  return this.data.length;
+};
+
+Heap.prototype.indexOf = function (value) {
+  var n, i = -1;
+  var last;
+
+  if (typeof value === 'function') {
+    for (n = 0; n < this.data.length; n++) {
+      if (value(this.data[n])) {
+        i = n;
+        break;
+      }
+    }
+  }
+  else {
+    i = this.data.indexOf(value);
+  }
+  return i;
+};
+
+Heap.prototype.remove = function (value) {
+  var i = this.indexOf(value);
+  return this.removeIndex(i);
+};
+
+Heap.prototype.get = function (i) {
+  return this.data[i];
+};
+
+Heap.prototype.removeIndex = function (i) {
+  var last;
+  if (i === -1) return;
+
+  this.onMove(this.data[i], undefined, i);
+
+  if (i === this.data.length - 1) {
+    last = this.data.pop();
+    return last;
+  }
+
+  this._swap(i, this.data.length - 1);
+
+  last = this.data.pop();
+
+  if (this.data.length > 1) {
+    this._bubbleUp(i);
+    this._bubbleDown(i);
+  }
+  return last;
+};
+
+Heap.prototype.replaceIndex = function (i, value) {
+  var last;
+  if (i === -1) return;
+  this.onMove(this.data[i], undefined, i);
+
+  this.data.push(value);
+
+  this._swap(i, this.data.length - 1);
+
+  last = this.data.pop();
+
+  if (this.data.length > 1) {
+    this._bubbleUp(i);
+    this._bubbleDown(i);
+  }
+  return last;
+};
+
+Heap.prototype.toArray = function () {
+  return this.data.slice(0);
+};
+
+module.exports = Heap;
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+module.exports = function(length) {
+    var last = null
+    , repeat = 0
+
+    if (typeof length == 'undefined') length = 15
+
+    return function() {
+        var now = Math.pow(10, 2) * +new Date()
+
+        if (now == last) {
+            repeat++
+        } else {
+            repeat = 0
+            last = now
+        }
+
+        var s = (now + repeat).toString()
+        return +s.substr(s.length - length)
+    }
+}
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(setImmediate, global) {__webpack_require__(9);
+var validator = __webpack_require__(37);
+var wrapConstructor = __webpack_require__(43);
 
 var _combineValidators = function (validators) {
   return validator.combine(validators.map(function (v) {
@@ -19457,15 +19415,15 @@ _occamsrazor.wrapConstructor = wrapConstructor;
 
 module.exports = _occamsrazor;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10).setImmediate, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17).setImmediate, __webpack_require__(8)))
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var match = __webpack_require__(39);
-var and = __webpack_require__(41);
-var combineValidators = __webpack_require__(42);
+var match = __webpack_require__(38);
+var and = __webpack_require__(40);
+var combineValidators = __webpack_require__(41);
 var ValidationResult = __webpack_require__(19);
 var setName = __webpack_require__(2);
 
@@ -19504,7 +19462,7 @@ module.exports = buildValidator;
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var match = __webpack_require__(18);
@@ -19513,7 +19471,7 @@ module.exports = match;
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var setName = __webpack_require__(2);
@@ -19536,7 +19494,7 @@ module.exports = function (originalValidator) {
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var match = __webpack_require__(18);
@@ -19570,7 +19528,7 @@ module.exports = function and(args) {
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ValidationResult = __webpack_require__(19);
@@ -19611,7 +19569,7 @@ module.exports = function combineValidators(validators) {
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports) {
 
 // convert an array in form [1,2,3] into a string "ABC" (easily sortable)
@@ -19625,7 +19583,7 @@ module.exports = function array_to_str(score) {
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = function wrapConstructor(Constructor) {
@@ -19643,6 +19601,48 @@ module.exports = function wrapConstructor(Constructor) {
   }
   return closure;
 };
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+function renderNode (obj, queue) {
+  var node
+  var content = obj.content
+  if (content instanceof window.Node) {
+    node = content
+  } else {
+    node = document.createElement('div')
+    node.innerHTML = content
+  }
+  var parentNode = document.querySelector('.firstup-slot')
+  parentNode.appendChild(node)
+}
+
+function firstUp (queue, opts) {
+  opts = opts || {}
+  var defaultRender = opts.render || renderNode
+  var waitingForQueue = false
+
+  function addContent () {
+    if (waitingForQueue) return
+    waitingForQueue = true
+    queue.fetch(function (notification) {
+      waitingForQueue = false
+      var render = notification.render || defaultRender
+      render(notification, queue)
+    })
+  }
+
+  addContent()
+
+  return {
+    next: addContent
+  }
+}
+
+module.exports = firstUp
 
 
 /***/ })
